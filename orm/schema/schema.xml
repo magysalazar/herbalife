@@ -1,0 +1,854 @@
+<?xml version="1.0" encoding="utf-8"?>
+<database name="herbalife" defaultIdMethod="native" defaultPhpNamingMethod="underscore">
+  <table name="ci_modulos" idMethod="native" phpName="CiModulos">
+    <column name="id_modulo" phpName="IdModulo" type="INTEGER" sqlType="int(11) unsigned" primaryKey="true" required="true"/>
+    <column name="id_opcion_modulo" phpName="IdOpcionModulo" type="INTEGER" size="10" sqlType="int(10) unsigned"/>
+    <column name="id_opcion_roles" phpName="IdOpcionRoles" type="INTEGER" size="10" sqlType="int(10) unsigned"/>
+    <column name="titulo" phpName="Titulo" type="VARCHAR" size="100" required="true"/>
+    <column name="tabla" phpName="Tabla" type="VARCHAR" size="255"/>
+    <column name="listed" phpName="Listed" type="VARCHAR" size="15" required="true" defaultValue="ENABLED"/>
+    <column name="descripcion" phpName="Descripcion" type="LONGVARCHAR"/>
+    <column name="icon" phpName="Icon" type="VARCHAR" size="200" required="true"/>
+    <column name="url" phpName="Url" type="VARCHAR" size="600" required="true"/>
+    <column name="estado" phpName="Estado" type="VARCHAR" size="255" defaultValue="ENABLED"/>
+    <column name="change_count" phpName="ChangeCount" type="INTEGER" required="true" defaultValue="0"/>
+    <column name="id_user_modified" phpName="IdUserModified" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+    <column name="id_user_created" phpName="IdUserCreated" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+    <column name="date_modified" phpName="DateModified" type="TIMESTAMP" required="true"/>
+    <column name="date_created" phpName="DateCreated" type="TIMESTAMP" required="true"/>
+    <foreign-key foreignTable="ci_usuarios" name="ci_modulos_ibfk_1">
+      <reference local="id_user_created" foreign="id_usuario"/>
+    </foreign-key>
+    <foreign-key foreignTable="ci_usuarios" name="ci_modulos_ibfk_2">
+      <reference local="id_user_modified" foreign="id_usuario"/>
+    </foreign-key>
+    <foreign-key foreignTable="ci_options" name="ci_modulos_ibfk_3">
+      <reference local="id_opcion_modulo" foreign="id_option"/>
+    </foreign-key>
+    <foreign-key foreignTable="ci_options" name="ci_modulos_ibfk_4">
+      <reference local="id_opcion_roles" foreign="id_option"/>
+    </foreign-key>
+    <index name="id_user_modified">
+      <index-column name="id_user_modified"/>
+    </index>
+    <index name="id_user_created">
+      <index-column name="id_user_created"/>
+    </index>
+    <index name="ci_modulos_ibfk_3">
+      <index-column name="id_opcion_modulo"/>
+    </index>
+    <index name="ci_modulos_ibfk_4">
+      <index-column name="id_opcion_roles"/>
+    </index>
+    <vendor type="mysql">
+      <parameter name="Engine" value="InnoDB"/>
+    </vendor>
+  </table>
+  <table name="ci_options" idMethod="native" phpName="CiOptions">
+    <column name="id_option" phpName="IdOption" type="INTEGER" size="10" sqlType="int(10) unsigned" primaryKey="true" autoIncrement="true" required="true"/>
+    <column name="nombre" phpName="Nombre" type="VARCHAR" size="250"/>
+    <column name="descripcion" phpName="Descripcion" type="VARCHAR" size="250"/>
+    <column name="id_setting" phpName="IdSetting" type="INTEGER" size="10" sqlType="int(10) unsigned"/>
+    <column name="nivel" phpName="Nivel" type="VARCHAR" size="200"/>
+    <column name="precio" phpName="Precio" type="DECIMAL" scale="0"/>
+    <column name="num_fichas" phpName="NumFichas" type="INTEGER"/>
+    <column name="id_modulo" phpName="IdModulo" type="INTEGER"/>
+    <column name="edit_tag" phpName="EditTag" type="VARCHAR" size="250"/>
+    <column name="estado" phpName="Estado" type="VARCHAR" size="15" defaultValue="ENABLED"/>
+    <column name="change_count" phpName="ChangeCount" type="INTEGER" defaultValue="0"/>
+    <column name="id_user_modified" phpName="IdUserModified" type="INTEGER" size="10" sqlType="int(10) unsigned" required="true"/>
+    <column name="id_user_created" phpName="IdUserCreated" type="INTEGER" size="10" sqlType="int(10) unsigned" required="true"/>
+    <column name="date_modified" phpName="DateModified" type="TIMESTAMP" required="true"/>
+    <column name="date_created" phpName="DateCreated" type="TIMESTAMP" required="true"/>
+    <foreign-key foreignTable="ci_usuarios" name="ci_options_ibfk_1">
+      <reference local="id_user_created" foreign="id_usuario"/>
+    </foreign-key>
+    <foreign-key foreignTable="ci_usuarios" name="ci_options_ibfk_2">
+      <reference local="id_user_modified" foreign="id_usuario"/>
+    </foreign-key>
+    <foreign-key foreignTable="ci_settings" name="ci_options_ibfk_3">
+      <reference local="id_setting" foreign="id_setting"/>
+    </foreign-key>
+    <index name="hbf_opciones_ibfk_1">
+      <index-column name="id_user_created"/>
+    </index>
+    <index name="hbf_opciones_ibfk_2">
+      <index-column name="id_user_modified"/>
+    </index>
+    <index name="ci_options_ibfk_3">
+      <index-column name="id_setting"/>
+    </index>
+    <vendor type="mysql">
+      <parameter name="Engine" value="InnoDB"/>
+    </vendor>
+  </table>
+  <table name="ci_sessions" idMethod="native" phpName="CiSessions">
+    <column name="id" phpName="Id" type="VARCHAR" size="128" primaryKey="true" required="true"/>
+    <column name="ip_address" phpName="IpAddress" type="VARCHAR" size="45" required="true"/>
+    <column name="timestamp" phpName="Timestamp" type="INTEGER" size="10" sqlType="int(10) unsigned" required="true" defaultValue="0"/>
+    <column name="data" phpName="Data" type="BLOB" required="true"/>
+    <column name="last_activity" phpName="LastActivity" type="TIMESTAMP" required="true"/>
+    <column name="id_usuario" phpName="IdUsuario" type="INTEGER" sqlType="int(11) unsigned"/>
+    <column name="id_hbf_sesion" phpName="IdHbfSesion" type="INTEGER" size="10" sqlType="int(10) unsigned"/>
+    <foreign-key foreignTable="ci_usuarios" name="ci_sessions_ibfk_1">
+      <reference local="id_usuario" foreign="id_usuario"/>
+    </foreign-key>
+    <foreign-key foreignTable="hbf_sesiones" name="ci_sessions_ibfk_2">
+      <reference local="id_hbf_sesion" foreign="id_sesion"/>
+    </foreign-key>
+    <index name="ci_sessions_ibfk_1">
+      <index-column name="id_usuario"/>
+    </index>
+    <index name="id_hbf_sesion">
+      <index-column name="id_hbf_sesion"/>
+    </index>
+    <vendor type="mysql">
+      <parameter name="Engine" value="InnoDB"/>
+    </vendor>
+  </table>
+  <table name="ci_settings" idMethod="native" phpName="CiSettings">
+    <column name="id_setting" phpName="IdSetting" type="INTEGER" sqlType="int(11) unsigned" primaryKey="true" autoIncrement="true" required="true"/>
+    <column name="nombre" phpName="Nombre" type="VARCHAR" size="250"/>
+    <column name="tabla" phpName="Tabla" type="VARCHAR" size="250" required="true"/>
+    <column name="id_field" phpName="IdField" type="VARCHAR" size="250"/>
+    <column name="fields" phpName="Fields" type="VARCHAR" size="800"/>
+    <column name="edit_tag" phpName="EditTag" type="VARCHAR" size="250"/>
+    <column name="descripcion" phpName="Descripcion" type="VARCHAR" size="500"/>
+    <column name="estado" phpName="Estado" type="VARCHAR" size="15" required="true" defaultValue="ENABLED"/>
+    <column name="change_count" phpName="ChangeCount" type="INTEGER" required="true" defaultValue="0"/>
+    <column name="id_user_modified" phpName="IdUserModified" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+    <column name="id_user_created" phpName="IdUserCreated" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+    <column name="date_modified" phpName="DateModified" type="TIMESTAMP"/>
+    <column name="date_created" phpName="DateCreated" type="TIMESTAMP"/>
+    <foreign-key foreignTable="ci_usuarios" name="ci_settings_ibfk_1">
+      <reference local="id_user_created" foreign="id_usuario"/>
+    </foreign-key>
+    <foreign-key foreignTable="ci_usuarios" name="ci_settings_ibfk_2">
+      <reference local="id_user_modified" foreign="id_usuario"/>
+    </foreign-key>
+    <index name="ci_settings_ibfk_1">
+      <index-column name="id_user_created"/>
+    </index>
+    <index name="ci_settings_ibfk_2">
+      <index-column name="id_user_modified"/>
+    </index>
+    <vendor type="mysql">
+      <parameter name="Engine" value="InnoDB"/>
+    </vendor>
+  </table>
+  <table name="ci_usuarios" idMethod="native" phpName="CiUsuarios">
+    <column name="id_usuario" phpName="IdUsuario" type="INTEGER" sqlType="int(11) unsigned" primaryKey="true" autoIncrement="true" required="true"/>
+    <column name="nombre" phpName="Nombre" type="VARCHAR" size="256"/>
+    <column name="apellido" phpName="Apellido" type="VARCHAR" size="256"/>
+    <column name="username" phpName="Username" type="VARCHAR" size="250"/>
+    <column name="email" phpName="Email" type="VARCHAR" size="100" required="true" defaultValue=""/>
+    <column name="password" phpName="Password" type="VARCHAR" size="128" required="true" defaultValue=""/>
+    <column name="fec_nacimiento" phpName="FecNacimiento" type="DATE"/>
+    <column name="sexo" phpName="Sexo" type="VARCHAR" size="15"/>
+    <column name="invitado_por" phpName="InvitadoPor" type="INTEGER" size="10" sqlType="int(10) unsigned"/>
+    <column name="phone_number_1" phpName="PhoneNumber1" type="VARCHAR" size="20"/>
+    <column name="phone_number_2" phpName="PhoneNumber2" type="VARCHAR" size="20"/>
+    <column name="cellphone_number_1" phpName="CellphoneNumber1" type="VARCHAR" size="20"/>
+    <column name="cellphone_number_2" phpName="CellphoneNumber2" type="VARCHAR" size="20"/>
+    <column name="cod_acceso" phpName="CodAcceso" type="VARCHAR" size="50"/>
+    <column name="id_option_tipo_asociado" phpName="IdOptionTipoAsociado" type="INTEGER" size="10" sqlType="int(10) unsigned"/>
+    <column name="id_option_nivel_asociado" phpName="IdOptionNivelAsociado" type="INTEGER" size="10" sqlType="int(10) unsigned"/>
+    <column name="id_club" phpName="IdClub" type="INTEGER" size="10" sqlType="int(10) unsigned"/>
+    <column name="id_turno" phpName="IdTurno" type="INTEGER" size="10" sqlType="int(10) unsigned"/>
+    <column name="id_sesion" phpName="IdSesion" type="INTEGER" size="10" sqlType="int(10) unsigned"/>
+    <column name="id_opcion_role" phpName="IdOpcionRole" type="INTEGER" size="10" sqlType="int(10) unsigned"/>
+    <column name="foto_perfil" phpName="FotoPerfil" type="INTEGER" sqlType="int(11) unsigned"/>
+    <column name="app_monitor" phpName="AppMonitor" type="VARCHAR" size="50"/>
+    <column name="app_orders" phpName="AppOrders" type="VARCHAR" size="50"/>
+    <column name="app_admin" phpName="AppAdmin" type="VARCHAR" size="50"/>
+    <column name="change_count" phpName="ChangeCount" type="INTEGER" required="true" defaultValue="0"/>
+    <column name="herbalife_key" phpName="HerbalifeKey" type="VARCHAR" size="256"/>
+    <column name="id_tipo_usuario" phpName="IdTipoUsuario" type="INTEGER" size="10" sqlType="int(10) unsigned"/>
+    <column name="estado" phpName="Estado" type="VARCHAR" size="15" required="true" defaultValue="ENABLED"/>
+    <column name="date_modified" phpName="DateModified" type="TIMESTAMP" required="true"/>
+    <column name="date_created" phpName="DateCreated" type="TIMESTAMP" required="true"/>
+    <foreign-key foreignTable="ci_options" name="ci_usuarios_ibfk_1">
+      <reference local="id_option_tipo_asociado" foreign="id_option"/>
+    </foreign-key>
+    <foreign-key foreignTable="ci_options" name="ci_usuarios_ibfk_2">
+      <reference local="id_option_nivel_asociado" foreign="id_option"/>
+    </foreign-key>
+    <foreign-key foreignTable="ci_usuarios" name="ci_usuarios_ibfk_3">
+      <reference local="invitado_por" foreign="id_usuario"/>
+    </foreign-key>
+    <foreign-key foreignTable="ci_options" name="ci_usuarios_ibfk_4">
+      <reference local="id_opcion_role" foreign="id_option"/>
+    </foreign-key>
+    <foreign-key foreignTable="hbf_turnos" name="ci_usuarios_ibfk_5">
+      <reference local="id_turno" foreign="id_turno"/>
+    </foreign-key>
+    <foreign-key foreignTable="hbf_sesiones" name="ci_usuarios_ibfk_6">
+      <reference local="id_sesion" foreign="id_sesion"/>
+    </foreign-key>
+    <foreign-key foreignTable="ci_options" name="ci_usuarios_ibfk_7">
+      <reference local="id_tipo_usuario" foreign="id_option"/>
+    </foreign-key>
+    <foreign-key foreignTable="hbf_clubs" name="ci_usuarios_ibfk_8">
+      <reference local="id_club" foreign="id_club"/>
+    </foreign-key>
+    <index name="ci_usuarios_ibfk_3">
+      <index-column name="invitado_por"/>
+    </index>
+    <index name="ci_usuarios_ibfk_5">
+      <index-column name="id_turno"/>
+    </index>
+    <index name="ci_usuarios_ibfk_6">
+      <index-column name="id_sesion"/>
+    </index>
+    <index name="ci_usuarios_ibfk_1">
+      <index-column name="id_option_tipo_asociado"/>
+    </index>
+    <index name="ci_usuarios_ibfk_2">
+      <index-column name="id_option_nivel_asociado"/>
+    </index>
+    <index name="ci_usuarios_ibfk_4">
+      <index-column name="id_opcion_role"/>
+    </index>
+    <index name="ci_usuarios_ibfk_7">
+      <index-column name="id_tipo_usuario"/>
+    </index>
+    <index name="ci_usuarios_ibfk_8">
+      <index-column name="id_club"/>
+    </index>
+    <vendor type="mysql">
+      <parameter name="Engine" value="InnoDB"/>
+    </vendor>
+  </table>
+  <table name="hbf_clubs" idMethod="native" phpName="HbfClubs">
+    <column name="id_club" phpName="IdClub" type="INTEGER" size="10" sqlType="int(10) unsigned" primaryKey="true" autoIncrement="true" required="true"/>
+    <column name="nombre" phpName="Nombre" type="VARCHAR" size="100" required="true"/>
+    <column name="email" phpName="Email" type="VARCHAR" size="100" required="true"/>
+    <column name="direccion" phpName="Direccion" type="VARCHAR" size="200" required="true"/>
+    <column name="licencia" phpName="Licencia" type="VARCHAR" size="100" required="true"/>
+    <column name="direccion_gps" phpName="DireccionGps" type="VARCHAR" size="100" required="true"/>
+    <column name="ids_miembros" phpName="IdsMiembros" type="VARCHAR" size="500"/>
+    <column name="ids_turnos" phpName="IdsTurnos" type="VARCHAR" size="500"/>
+    <column name="estado" phpName="Estado" type="VARCHAR" size="15" required="true" defaultValue="ENABLED"/>
+    <column name="change_count" phpName="ChangeCount" type="INTEGER" required="true" defaultValue="0"/>
+    <column name="id_user_modified" phpName="IdUserModified" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+    <column name="id_user_created" phpName="IdUserCreated" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+    <column name="date_modified" phpName="DateModified" type="TIMESTAMP" required="true"/>
+    <column name="date_created" phpName="DateCreated" type="TIMESTAMP" required="true"/>
+    <foreign-key foreignTable="ci_usuarios" name="hbf_clubs_ibfk_1">
+      <reference local="id_user_created" foreign="id_usuario"/>
+    </foreign-key>
+    <foreign-key foreignTable="ci_usuarios" name="hbf_clubs_ibfk_2">
+      <reference local="id_user_modified" foreign="id_usuario"/>
+    </foreign-key>
+    <index name="hbf_clubs_ibfk_2">
+      <index-column name="id_user_modified"/>
+    </index>
+    <index name="hbf_clubs_ibfk_3">
+      <index-column name="id_user_created"/>
+    </index>
+    <vendor type="mysql">
+      <parameter name="Engine" value="InnoDB"/>
+    </vendor>
+  </table>
+  <table name="hbf_comandas" idMethod="native" phpName="HbfComandas">
+    <column name="id_comanda" phpName="IdComanda" type="INTEGER" size="10" sqlType="int(10) unsigned" primaryKey="true" autoIncrement="true" required="true"/>
+    <column name="id_club" phpName="IdClub" type="INTEGER" size="10" sqlType="int(10) unsigned" required="true"/>
+    <column name="id_turno" phpName="IdTurno" type="INTEGER" size="10" sqlType="int(10) unsigned" required="true"/>
+    <column name="id_sesion" phpName="IdSesion" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+    <column name="id_cliente" phpName="IdCliente" type="INTEGER" size="10" sqlType="int(10) unsigned" required="true"/>
+    <column name="ids_vasos" phpName="IdsVasos" type="VARCHAR" size="250"/>
+    <column name="importe" phpName="Importe" type="DECIMAL" scale="0"/>
+    <column name="a_cuenta" phpName="ACuenta" type="DECIMAL" scale="0"/>
+    <column name="saldo" phpName="Saldo" type="DECIMAL" scale="0"/>
+    <column name="prioridad" phpName="Prioridad" type="VARCHAR" size="500"/>
+    <column name="hora_entrega" phpName="HoraEntrega" type="TIME"/>
+    <column name="tipo_consumo" phpName="TipoConsumo" type="VARCHAR" size="500"/>
+    <column name="comentarios" phpName="Comentarios" type="LONGVARCHAR"/>
+    <column name="id_ficha_prepago" phpName="IdFichaPrepago" type="INTEGER" size="10" sqlType="int(10) unsigned"/>
+    <column name="pagado" phpName="Pagado" type="VARCHAR" size="10"/>
+    <column name="estado" phpName="Estado" type="VARCHAR" size="15" required="true" defaultValue="ENABLED"/>
+    <column name="change_count" phpName="ChangeCount" type="INTEGER" required="true" defaultValue="0"/>
+    <column name="id_user_modified" phpName="IdUserModified" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+    <column name="id_user_created" phpName="IdUserCreated" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+    <column name="date_modified" phpName="DateModified" type="TIMESTAMP" required="true"/>
+    <column name="date_created" phpName="DateCreated" type="TIMESTAMP" required="true"/>
+    <foreign-key foreignTable="hbf_clubs" name="hbf_comandas_ibfk_1" onDelete="CASCADE" onUpdate="CASCADE">
+      <reference local="id_club" foreign="id_club"/>
+    </foreign-key>
+    <foreign-key foreignTable="hbf_turnos" name="hbf_comandas_ibfk_2" onDelete="CASCADE" onUpdate="CASCADE">
+      <reference local="id_turno" foreign="id_turno"/>
+    </foreign-key>
+    <foreign-key foreignTable="hbf_sesiones" name="hbf_comandas_ibfk_3">
+      <reference local="id_sesion" foreign="id_sesion"/>
+    </foreign-key>
+    <foreign-key foreignTable="ci_usuarios" name="hbf_comandas_ibfk_4">
+      <reference local="id_user_created" foreign="id_usuario"/>
+    </foreign-key>
+    <foreign-key foreignTable="ci_usuarios" name="hbf_comandas_ibfk_5">
+      <reference local="id_user_modified" foreign="id_usuario"/>
+    </foreign-key>
+    <foreign-key foreignTable="ci_usuarios" name="hbf_comandas_ibfk_6">
+      <reference local="id_cliente" foreign="id_usuario"/>
+    </foreign-key>
+    <foreign-key foreignTable="hbf_prepagos" name="hbf_comandas_ibfk_8">
+      <reference local="id_ficha_prepago" foreign="id_prepago"/>
+    </foreign-key>
+    <index name="hbf_comandas_ibfk_1">
+      <index-column name="id_club"/>
+    </index>
+    <index name="hbf_comandas_ibfk_2">
+      <index-column name="id_turno"/>
+    </index>
+    <index name="hbf_comandas_ibfk_3">
+      <index-column name="id_sesion"/>
+    </index>
+    <index name="hbf_comandas_ibfk_5">
+      <index-column name="id_cliente"/>
+    </index>
+    <index name="hbf_comandas_ibfk_6">
+      <index-column name="id_user_modified"/>
+    </index>
+    <index name="hbf_comandas_ibfk_7">
+      <index-column name="id_user_created"/>
+    </index>
+    <index name="hbf_comandas_ibfk_8">
+      <index-column name="id_ficha_prepago"/>
+    </index>
+    <vendor type="mysql">
+      <parameter name="Engine" value="InnoDB"/>
+    </vendor>
+  </table>
+  <table name="hbf_detalles_pedidos" idMethod="native" phpName="HbfDetallesPedidos">
+    <column name="id_detalle_pedido" phpName="IdDetallePedido" type="INTEGER" size="10" sqlType="int(10) unsigned" primaryKey="true" autoIncrement="true" required="true"/>
+    <column name="id_comanda" phpName="IdComanda" type="INTEGER" sqlType="int(11) unsigned"/>
+    <column name="id_vaso" phpName="IdVaso" type="INTEGER" size="10" sqlType="int(10) unsigned" required="true"/>
+    <column name="id_producto" phpName="IdProducto" type="INTEGER" size="10" sqlType="int(10) unsigned" required="true"/>
+    <column name="cantidad" phpName="Cantidad" type="INTEGER"/>
+    <column name="estado" phpName="Estado" type="VARCHAR" size="15" required="true" defaultValue="ENABLED"/>
+    <column name="change_count" phpName="ChangeCount" type="INTEGER" required="true" defaultValue="0"/>
+    <column name="id_user_modified" phpName="IdUserModified" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+    <column name="id_user_created" phpName="IdUserCreated" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+    <column name="date_modified" phpName="DateModified" type="TIMESTAMP" required="true"/>
+    <column name="date_created" phpName="DateCreated" type="TIMESTAMP" required="true"/>
+    <foreign-key foreignTable="ci_usuarios" name="hbf_detalles_pedidos_ibfk_1">
+      <reference local="id_user_created" foreign="id_usuario"/>
+    </foreign-key>
+    <foreign-key foreignTable="ci_usuarios" name="hbf_detalles_pedidos_ibfk_2">
+      <reference local="id_user_modified" foreign="id_usuario"/>
+    </foreign-key>
+    <foreign-key foreignTable="hbf_productos" name="hbf_detalles_pedidos_ibfk_4">
+      <reference local="id_producto" foreign="id_producto"/>
+    </foreign-key>
+    <foreign-key foreignTable="hbf_vasos" name="hbf_detalles_pedidos_ibfk_5">
+      <reference local="id_vaso" foreign="id_vaso"/>
+    </foreign-key>
+    <foreign-key foreignTable="hbf_comandas" name="hbf_detalles_pedidos_ibfk_6">
+      <reference local="id_comanda" foreign="id_comanda"/>
+    </foreign-key>
+    <index name="id_user_modified">
+      <index-column name="id_user_modified"/>
+    </index>
+    <index name="id_user_created">
+      <index-column name="id_user_created"/>
+    </index>
+    <index name="id_vaso">
+      <index-column name="id_vaso"/>
+    </index>
+    <index name="hbf_detalles_pedidos_ibfk_4">
+      <index-column name="id_producto"/>
+    </index>
+    <index name="id_comanda">
+      <index-column name="id_comanda"/>
+    </index>
+    <vendor type="mysql">
+      <parameter name="Engine" value="InnoDB"/>
+    </vendor>
+  </table>
+  <table name="hbf_egresos" idMethod="native" phpName="HbfEgresos">
+    <column name="id_egreso" phpName="IdEgreso" type="INTEGER" size="10" sqlType="int(10) unsigned" primaryKey="true" autoIncrement="true" required="true"/>
+    <column name="id_club" phpName="IdClub" type="INTEGER" size="10" sqlType="int(10) unsigned"/>
+    <column name="id_turno" phpName="IdTurno" type="INTEGER" size="10" sqlType="int(10) unsigned"/>
+    <column name="id_sesion" phpName="IdSesion" type="INTEGER" size="10" sqlType="int(10) unsigned"/>
+    <column name="id_cliente" phpName="IdCliente" type="INTEGER" size="10" sqlType="int(10) unsigned"/>
+    <column name="detalle" phpName="Detalle" type="VARCHAR" size="500"/>
+    <column name="tipo_egreso" phpName="TipoEgreso" type="VARCHAR" size="10"/>
+    <column name="fecha_egreso" phpName="FechaEgreso" type="DATE"/>
+    <column name="monto" phpName="Monto" type="DECIMAL" scale="0"/>
+    <column name="estado" phpName="Estado" type="VARCHAR" size="15" required="true" defaultValue="ENABLED"/>
+    <column name="change_count" phpName="ChangeCount" type="INTEGER" required="true" defaultValue="0"/>
+    <column name="id_user_modified" phpName="IdUserModified" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+    <column name="id_user_created" phpName="IdUserCreated" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+    <column name="date_modified" phpName="DateModified" type="TIMESTAMP" required="true"/>
+    <column name="date_created" phpName="DateCreated" type="TIMESTAMP" required="true"/>
+    <foreign-key foreignTable="ci_usuarios" name="hbf_egresos_ibfk_1">
+      <reference local="id_user_created" foreign="id_usuario"/>
+    </foreign-key>
+    <foreign-key foreignTable="ci_usuarios" name="hbf_egresos_ibfk_2">
+      <reference local="id_user_modified" foreign="id_usuario"/>
+    </foreign-key>
+    <foreign-key foreignTable="ci_usuarios" name="hbf_egresos_ibfk_3">
+      <reference local="id_cliente" foreign="id_usuario"/>
+    </foreign-key>
+    <foreign-key foreignTable="hbf_turnos" name="hbf_egresos_ibfk_4">
+      <reference local="id_turno" foreign="id_turno"/>
+    </foreign-key>
+    <foreign-key foreignTable="hbf_sesiones" name="hbf_egresos_ibfk_5">
+      <reference local="id_sesion" foreign="id_sesion"/>
+    </foreign-key>
+    <foreign-key foreignTable="hbf_clubs" name="hbf_egresos_ibfk_6">
+      <reference local="id_club" foreign="id_club"/>
+    </foreign-key>
+    <index name="hbf_egresos_ibfk_1">
+      <index-column name="id_user_created"/>
+    </index>
+    <index name="hbf_egresos_ibfk_2">
+      <index-column name="id_user_modified"/>
+    </index>
+    <index name="hbf_egresos_ibfk_3">
+      <index-column name="id_cliente"/>
+    </index>
+    <index name="hbf_egresos_ibfk_4">
+      <index-column name="id_turno"/>
+    </index>
+    <index name="hbf_egresos_ibfk_5">
+      <index-column name="id_sesion"/>
+    </index>
+    <index name="hbf_egresos_ibfk_6">
+      <index-column name="id_club"/>
+    </index>
+    <unique name="hbf_egresos_id_egreso_uindex">
+      <unique-column name="id_egreso"/>
+    </unique>
+    <vendor type="mysql">
+      <parameter name="Engine" value="InnoDB"/>
+    </vendor>
+  </table>
+  <table name="hbf_ingresos" idMethod="native" phpName="HbfIngresos">
+    <column name="id_ingreso" phpName="IdIngreso" type="INTEGER" sqlType="int(11) unsigned" primaryKey="true" autoIncrement="true" required="true"/>
+    <column name="id_cliente" phpName="IdCliente" type="INTEGER" sqlType="int(11) unsigned"/>
+    <column name="id_comanda" phpName="IdComanda" type="INTEGER" sqlType="int(11) unsigned"/>
+    <column name="id_prepago" phpName="IdPrepago" type="INTEGER" size="10" sqlType="int(10) unsigned"/>
+    <column name="id_producto" phpName="IdProducto" type="INTEGER" sqlType="int(11) unsigned"/>
+    <column name="estado" phpName="Estado" type="VARCHAR" size="15" defaultValue="ENABLED"/>
+    <column name="change_count" phpName="ChangeCount" type="INTEGER" required="true" defaultValue="0"/>
+    <column name="id_user_modified" phpName="IdUserModified" type="INTEGER" size="10" sqlType="int(10) unsigned" required="true"/>
+    <column name="id_user_created" phpName="IdUserCreated" type="INTEGER" size="10" sqlType="int(10) unsigned" required="true"/>
+    <column name="date_modified" phpName="DateModified" type="TIMESTAMP" required="true"/>
+    <column name="date_created" phpName="DateCreated" type="TIMESTAMP" required="true"/>
+    <foreign-key foreignTable="ci_usuarios" name="hbf_ingresos_ibfk_1">
+      <reference local="id_user_created" foreign="id_usuario"/>
+    </foreign-key>
+    <foreign-key foreignTable="ci_usuarios" name="hbf_ingresos_ibfk_2">
+      <reference local="id_user_modified" foreign="id_usuario"/>
+    </foreign-key>
+    <foreign-key foreignTable="ci_usuarios" name="hbf_ingresos_ibfk_3">
+      <reference local="id_cliente" foreign="id_usuario"/>
+    </foreign-key>
+    <foreign-key foreignTable="hbf_productos" name="hbf_ingresos_ibfk_4">
+      <reference local="id_producto" foreign="id_producto"/>
+    </foreign-key>
+    <foreign-key foreignTable="hbf_comandas" name="hbf_ingresos_ibfk_5">
+      <reference local="id_comanda" foreign="id_comanda"/>
+    </foreign-key>
+    <foreign-key foreignTable="hbf_prepagos" name="hbf_ingresos_ibfk_6">
+      <reference local="id_prepago" foreign="id_prepago"/>
+    </foreign-key>
+    <index name="hbf_ingresos_ibfk_3">
+      <index-column name="id_cliente"/>
+    </index>
+    <index name="hbf_ingresos_ibfk_5">
+      <index-column name="id_comanda"/>
+    </index>
+    <index name="hbf_ingresos_ibfk_6">
+      <index-column name="id_prepago"/>
+    </index>
+    <index name="hbf_ingresos_ibfk_4">
+      <index-column name="id_producto"/>
+    </index>
+    <index name="hbf_ingresos_ibfk_1">
+      <index-column name="id_user_modified"/>
+    </index>
+    <index name="hbf_ingresos_ibfk_2">
+      <index-column name="id_user_created"/>
+    </index>
+    <vendor type="mysql">
+      <parameter name="Engine" value="InnoDB"/>
+    </vendor>
+  </table>
+  <table name="hbf_porciones" idMethod="native" phpName="HbfPorciones">
+    <column name="id_porcion" phpName="IdPorcion" type="INTEGER" size="10" sqlType="int(10) unsigned" primaryKey="true" autoIncrement="true" required="true"/>
+    <column name="id_producto" phpName="IdProducto" type="INTEGER" size="10" sqlType="int(10) unsigned"/>
+    <column name="cantidad" phpName="Cantidad" type="INTEGER"/>
+    <column name="estado" phpName="Estado" type="VARCHAR" size="15" required="true" defaultValue="ENABLED"/>
+    <column name="change_count" phpName="ChangeCount" type="INTEGER" required="true" defaultValue="0"/>
+    <column name="id_user_modified" phpName="IdUserModified" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+    <column name="id_user_created" phpName="IdUserCreated" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+    <column name="date_modified" phpName="DateModified" type="TIMESTAMP" required="true"/>
+    <column name="date_created" phpName="DateCreated" type="TIMESTAMP" required="true"/>
+    <foreign-key foreignTable="ci_usuarios" name="hbf_porciones_ibfk_1">
+      <reference local="id_user_created" foreign="id_usuario"/>
+    </foreign-key>
+    <foreign-key foreignTable="ci_usuarios" name="hbf_porciones_ibfk_2">
+      <reference local="id_user_modified" foreign="id_usuario"/>
+    </foreign-key>
+    <foreign-key foreignTable="hbf_productos" name="hbf_porciones_ibfk_3">
+      <reference local="id_producto" foreign="id_producto"/>
+    </foreign-key>
+    <index name="hbf_porsiones_ibfk_1">
+      <index-column name="id_user_created"/>
+    </index>
+    <index name="hbf_porsiones_ibfk_2">
+      <index-column name="id_user_modified"/>
+    </index>
+    <index name="hbf_porsiones_ibfk_3">
+      <index-column name="id_producto"/>
+    </index>
+    <vendor type="mysql">
+      <parameter name="Engine" value="InnoDB"/>
+    </vendor>
+  </table>
+  <table name="hbf_prepagos" idMethod="native" phpName="HbfPrepagos">
+    <column name="id_prepago" phpName="IdPrepago" type="INTEGER" sqlType="int(11) unsigned" primaryKey="true" autoIncrement="true" required="true"/>
+    <column name="id_cliente" phpName="IdCliente" type="INTEGER" size="10" sqlType="int(10) unsigned"/>
+    <column name="id_turno" phpName="IdTurno" type="INTEGER" size="10" sqlType="int(10) unsigned"/>
+    <column name="id_sesion" phpName="IdSesion" type="INTEGER" size="10" sqlType="int(10) unsigned" required="true"/>
+    <column name="fichas_total" phpName="FichasTotal" type="INTEGER"/>
+    <column name="fichas_usadas" phpName="FichasUsadas" type="INTEGER"/>
+    <column name="fichas_gratis" phpName="FichasGratis" type="INTEGER"/>
+    <column name="fichas_restantes" phpName="FichasRestantes" type="INTEGER"/>
+    <column name="id_option_tipo_prepago" phpName="IdOptionTipoPrepago" type="INTEGER" size="10" sqlType="int(10) unsigned"/>
+    <column name="a_cuenta" phpName="ACuenta" type="DECIMAL" scale="0"/>
+    <column name="saldo" phpName="Saldo" type="DECIMAL" scale="0"/>
+    <column name="importe" phpName="Importe" type="DECIMAL" scale="0"/>
+    <column name="pagado" phpName="Pagado" type="VARCHAR" size="50" defaultValue="NO"/>
+    <column name="finalizado" phpName="Finalizado" type="VARCHAR" size="50" defaultValue="NO"/>
+    <column name="observaciones" phpName="Observaciones" type="INTEGER"/>
+    <column name="estado" phpName="Estado" type="VARCHAR" size="15" required="true" defaultValue="ENABLED"/>
+    <column name="change_count" phpName="ChangeCount" type="INTEGER" required="true" defaultValue="0"/>
+    <column name="id_user_created" phpName="IdUserCreated" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+    <column name="id_user_modified" phpName="IdUserModified" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+    <column name="date_modified" phpName="DateModified" type="TIMESTAMP"/>
+    <column name="date_created" phpName="DateCreated" type="TIMESTAMP" required="true"/>
+    <foreign-key foreignTable="ci_usuarios" name="hbf_prepagos_ibfk_1">
+      <reference local="id_cliente" foreign="id_usuario"/>
+    </foreign-key>
+    <foreign-key foreignTable="ci_usuarios" name="hbf_prepagos_ibfk_2">
+      <reference local="id_user_created" foreign="id_usuario"/>
+    </foreign-key>
+    <foreign-key foreignTable="ci_usuarios" name="hbf_prepagos_ibfk_3">
+      <reference local="id_user_modified" foreign="id_usuario"/>
+    </foreign-key>
+    <foreign-key foreignTable="hbf_sesiones" name="hbf_prepagos_ibfk_4">
+      <reference local="id_sesion" foreign="id_sesion"/>
+    </foreign-key>
+    <foreign-key foreignTable="ci_options" name="hbf_prepagos_ibfk_5">
+      <reference local="id_option_tipo_prepago" foreign="id_option"/>
+    </foreign-key>
+    <foreign-key foreignTable="hbf_turnos" name="hbf_prepagos_ibfk_6">
+      <reference local="id_turno" foreign="id_turno"/>
+    </foreign-key>
+    <index name="hbf_prepago_ibfk_1">
+      <index-column name="id_cliente"/>
+    </index>
+    <index name="hbf_prepago_ibfk_2">
+      <index-column name="id_user_modified"/>
+    </index>
+    <index name="hbf_prepago_ibfk_3">
+      <index-column name="id_user_created"/>
+    </index>
+    <index name="hbf_prepago_ibfk_5">
+      <index-column name="id_option_tipo_prepago"/>
+    </index>
+    <index name="hbf_prepago_ibfk_6">
+      <index-column name="id_turno"/>
+    </index>
+    <index name="hbf_prepagos_ibfk_4">
+      <index-column name="id_sesion"/>
+    </index>
+    <vendor type="mysql">
+      <parameter name="Engine" value="InnoDB"/>
+    </vendor>
+  </table>
+  <table name="hbf_productos" idMethod="native" phpName="HbfProductos">
+    <column name="id_producto" phpName="IdProducto" type="INTEGER" size="10" sqlType="int(10) unsigned" primaryKey="true" autoIncrement="true" required="true"/>
+    <column name="nombre" phpName="Nombre" type="VARCHAR" size="100" required="true"/>
+    <column name="descripcion" phpName="Descripcion" type="LONGVARCHAR" required="true"/>
+    <column name="id_option_tipo_producto" phpName="IdOptionTipoProducto" type="INTEGER" size="10" sqlType="int(10) unsigned" required="true"/>
+    <column name="id_option_categoria_producto" phpName="IdOptionCategoriaProducto" type="INTEGER" size="10" sqlType="int(10) unsigned" required="true"/>
+    <column name="foto_producto" phpName="FotoProducto" type="VARCHAR" size="500"/>
+    <column name="precio_venta" phpName="PrecioVenta" type="DECIMAL" scale="0"/>
+    <column name="precio_porcion" phpName="PrecioPorcion" type="DECIMAL" scale="0"/>
+    <column name="precio_compra" phpName="PrecioCompra" type="DECIMAL" scale="0"/>
+    <column name="num_porciones" phpName="NumPorciones" type="INTEGER" defaultValue="0"/>
+    <column name="estado" phpName="Estado" type="VARCHAR" size="15" required="true" defaultValue="ENABLED"/>
+    <column name="change_count" phpName="ChangeCount" type="INTEGER" required="true" defaultValue="0"/>
+    <column name="id_user_modified" phpName="IdUserModified" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+    <column name="id_user_created" phpName="IdUserCreated" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+    <column name="date_modified" phpName="DateModified" type="TIMESTAMP"/>
+    <column name="date_created" phpName="DateCreated" type="TIMESTAMP"/>
+    <foreign-key foreignTable="ci_usuarios" name="hbf_productos_ibfk_1">
+      <reference local="id_user_created" foreign="id_usuario"/>
+    </foreign-key>
+    <foreign-key foreignTable="ci_usuarios" name="hbf_productos_ibfk_2">
+      <reference local="id_user_modified" foreign="id_usuario"/>
+    </foreign-key>
+    <foreign-key foreignTable="ci_options" name="hbf_productos_ibfk_3">
+      <reference local="id_option_categoria_producto" foreign="id_option"/>
+    </foreign-key>
+    <foreign-key foreignTable="ci_options" name="hbf_productos_ibfk_4">
+      <reference local="id_option_tipo_producto" foreign="id_option"/>
+    </foreign-key>
+    <index name="hbf_productos_ibfk_1">
+      <index-column name="id_user_modified"/>
+    </index>
+    <index name="hbf_productos_ibfk_2">
+      <index-column name="id_user_created"/>
+    </index>
+    <index name="hbf_productos_ibfk_3">
+      <index-column name="id_option_categoria_producto"/>
+    </index>
+    <index name="hbf_productos_ibfk_4">
+      <index-column name="id_option_tipo_producto"/>
+    </index>
+    <vendor type="mysql">
+      <parameter name="Engine" value="InnoDB"/>
+    </vendor>
+  </table>
+  <table name="hbf_sesiones" idMethod="native" phpName="HbfSesiones">
+    <column name="id_sesion" phpName="IdSesion" type="INTEGER" sqlType="int(11) unsigned" primaryKey="true" autoIncrement="true" required="true"/>
+    <column name="id_club" phpName="IdClub" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+    <column name="id_turno" phpName="IdTurno" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+    <column name="id_asociado" phpName="IdAsociado" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+    <column name="detalle" phpName="Detalle" type="VARCHAR" size="400" defaultValue=""/>
+    <column name="caja_inicial" phpName="CajaInicial" type="DECIMAL" scale="0"/>
+    <column name="caja_final" phpName="CajaFinal" type="DECIMAL" scale="0"/>
+    <column name="total" phpName="Total" type="DECIMAL" scale="0"/>
+    <column name="num_consumos" phpName="NumConsumos" type="DECIMAL" scale="0"/>
+    <column name="total_ingresos" phpName="TotalIngresos" type="DECIMAL" scale="0"/>
+    <column name="total_egresos" phpName="TotalEgresos" type="DECIMAL" scale="0"/>
+    <column name="total_deben" phpName="TotalDeben" type="DECIMAL" scale="0"/>
+    <column name="total_sobra" phpName="TotalSobra" type="DECIMAL" scale="0"/>
+    <column name="total_falta" phpName="TotalFalta" type="DECIMAL" scale="0"/>
+    <column name="sobre_rojo" phpName="SobreRojo" type="DECIMAL" scale="0"/>
+    <column name="sobre_verde" phpName="SobreVerde" type="DECIMAL" scale="0"/>
+    <column name="deposito" phpName="Deposito" type="DECIMAL" scale="0"/>
+    <column name="cerrado" phpName="Cerrado" type="VARCHAR" size="10"/>
+    <column name="observaciones" phpName="Observaciones" type="VARCHAR" size="400" defaultValue=""/>
+    <column name="fec_sesion" phpName="FecSesion" type="TIMESTAMP"/>
+    <column name="id_opcion_sesion" phpName="IdOpcionSesion" type="INTEGER" size="10" sqlType="int(10) unsigned"/>
+    <column name="estado" phpName="Estado" type="VARCHAR" size="15" required="true" defaultValue="ENABLED"/>
+    <column name="change_count" phpName="ChangeCount" type="INTEGER" required="true" defaultValue="0"/>
+    <column name="id_user_modified" phpName="IdUserModified" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+    <column name="id_user_created" phpName="IdUserCreated" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+    <column name="date_modified" phpName="DateModified" type="TIMESTAMP" required="true"/>
+    <column name="date_created" phpName="DateCreated" type="TIMESTAMP" required="true"/>
+    <foreign-key foreignTable="ci_usuarios" name="hbf_sesiones_ibfk_1">
+      <reference local="id_user_created" foreign="id_usuario"/>
+    </foreign-key>
+    <foreign-key foreignTable="ci_usuarios" name="hbf_sesiones_ibfk_2">
+      <reference local="id_user_modified" foreign="id_usuario"/>
+    </foreign-key>
+    <foreign-key foreignTable="hbf_clubs" name="hbf_sesiones_ibfk_3">
+      <reference local="id_club" foreign="id_club"/>
+    </foreign-key>
+    <foreign-key foreignTable="ci_usuarios" name="hbf_sesiones_ibfk_4">
+      <reference local="id_asociado" foreign="id_usuario"/>
+    </foreign-key>
+    <foreign-key foreignTable="hbf_turnos" name="hbf_sesiones_ibfk_5">
+      <reference local="id_turno" foreign="id_turno"/>
+    </foreign-key>
+    <foreign-key foreignTable="ci_options" name="hbf_sesiones_ibfk_6">
+      <reference local="id_opcion_sesion" foreign="id_option"/>
+    </foreign-key>
+    <index name="id_encargado">
+      <index-column name="id_asociado"/>
+    </index>
+    <index name="id_club">
+      <index-column name="id_club"/>
+    </index>
+    <index name="id_turno">
+      <index-column name="id_turno"/>
+    </index>
+    <index name="id_user_modified">
+      <index-column name="id_user_modified"/>
+    </index>
+    <index name="id_user_created">
+      <index-column name="id_user_created"/>
+    </index>
+    <index name="hbf_sesiones_ibfk_6">
+      <index-column name="id_opcion_sesion"/>
+    </index>
+    <vendor type="mysql">
+      <parameter name="Engine" value="InnoDB"/>
+    </vendor>
+  </table>
+  <table name="hbf_turnos" idMethod="native" phpName="HbfTurnos">
+    <column name="id_turno" phpName="IdTurno" type="INTEGER" size="10" sqlType="int(10) unsigned" primaryKey="true" autoIncrement="true" required="true"/>
+    <column name="id_club" phpName="IdClub" type="INTEGER" size="10" sqlType="int(10) unsigned" required="true"/>
+    <column name="id_asociado" phpName="IdAsociado" type="INTEGER" size="10" sqlType="int(10) unsigned" required="true"/>
+    <column name="descripcion" phpName="Descripcion" type="LONGVARCHAR"/>
+    <column name="fec_inicio" phpName="FecInicio" type="DATE" required="true"/>
+    <column name="fec_fin" phpName="FecFin" type="DATE"/>
+    <column name="horario_desde" phpName="HorarioDesde" type="TIME" required="true"/>
+    <column name="horario_hasta" phpName="HorarioHasta" type="TIME" required="true"/>
+    <column name="total_consumos" phpName="TotalConsumos" type="INTEGER" required="true" defaultValue="0"/>
+    <column name="id_opcion_turnos" phpName="IdOpcionTurnos" type="INTEGER" size="10" sqlType="int(10) unsigned"/>
+    <column name="change_count" phpName="ChangeCount" type="INTEGER" required="true" defaultValue="0"/>
+    <column name="estado" phpName="Estado" type="VARCHAR" size="15" required="true" defaultValue="ENABLED"/>
+    <column name="id_user_modified" phpName="IdUserModified" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+    <column name="id_user_created" phpName="IdUserCreated" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+    <column name="date_modified" phpName="DateModified" type="TIMESTAMP" required="true"/>
+    <column name="date_created" phpName="DateCreated" type="TIMESTAMP" required="true"/>
+    <foreign-key foreignTable="ci_usuarios" name="hbf_turnos_ibfk_1">
+      <reference local="id_user_created" foreign="id_usuario"/>
+    </foreign-key>
+    <foreign-key foreignTable="ci_usuarios" name="hbf_turnos_ibfk_2">
+      <reference local="id_user_modified" foreign="id_usuario"/>
+    </foreign-key>
+    <foreign-key foreignTable="ci_usuarios" name="hbf_turnos_ibfk_3">
+      <reference local="id_asociado" foreign="id_usuario"/>
+    </foreign-key>
+    <foreign-key foreignTable="hbf_clubs" name="hbf_turnos_ibfk_4">
+      <reference local="id_club" foreign="id_club"/>
+    </foreign-key>
+    <foreign-key foreignTable="ci_options" name="hbf_turnos_ibfk_5">
+      <reference local="id_opcion_turnos" foreign="id_option"/>
+    </foreign-key>
+    <index name="id_asociado">
+      <index-column name="id_asociado"/>
+    </index>
+    <index name="id_club">
+      <index-column name="id_club"/>
+    </index>
+    <index name="id_user_modified">
+      <index-column name="id_user_modified"/>
+    </index>
+    <index name="id_user_created">
+      <index-column name="id_user_created"/>
+    </index>
+    <index name="hbf_turnos_ibfk_5">
+      <index-column name="id_opcion_turnos"/>
+    </index>
+    <vendor type="mysql">
+      <parameter name="Engine" value="InnoDB"/>
+    </vendor>
+  </table>
+  <table name="hbf_vasos" idMethod="native" phpName="HbfVasos">
+    <column name="id_vaso" phpName="IdVaso" type="INTEGER" size="10" sqlType="int(10) unsigned" primaryKey="true" autoIncrement="true" required="true"/>
+    <column name="id_comanda" phpName="IdComanda" type="INTEGER" size="10" sqlType="int(10) unsigned"/>
+    <column name="nivel" phpName="Nivel" type="INTEGER"/>
+    <column name="temperatura" phpName="Temperatura" type="VARCHAR" size="250"/>
+    <column name="consistencia" phpName="Consistencia" type="VARCHAR" size="250"/>
+    <column name="id_opcion_tipo_producto" phpName="IdOpcionTipoProducto" type="INTEGER" size="10" sqlType="int(10) unsigned"/>
+    <column name="num_productos" phpName="NumProductos" type="INTEGER" defaultValue="0"/>
+    <column name="detalle" phpName="Detalle" type="VARCHAR" size="500"/>
+    <column name="estado" phpName="Estado" type="VARCHAR" size="15" required="true" defaultValue="ENABLED"/>
+    <column name="change_count" phpName="ChangeCount" type="INTEGER" required="true" defaultValue="0"/>
+    <column name="id_user_modified" phpName="IdUserModified" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+    <column name="id_user_created" phpName="IdUserCreated" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+    <column name="date_modified" phpName="DateModified" type="TIMESTAMP" required="true"/>
+    <column name="date_created" phpName="DateCreated" type="TIMESTAMP" required="true"/>
+    <foreign-key foreignTable="ci_usuarios" name="hbf_vasos_ibfk_1" onDelete="CASCADE" onUpdate="CASCADE">
+      <reference local="id_user_modified" foreign="id_usuario"/>
+    </foreign-key>
+    <foreign-key foreignTable="ci_usuarios" name="hbf_vasos_ibfk_2" onDelete="CASCADE" onUpdate="CASCADE">
+      <reference local="id_user_created" foreign="id_usuario"/>
+    </foreign-key>
+    <foreign-key foreignTable="hbf_comandas" name="hbf_vasos_ibfk_3">
+      <reference local="id_comanda" foreign="id_comanda"/>
+    </foreign-key>
+    <foreign-key foreignTable="ci_options" name="hbf_vasos_ibfk_4">
+      <reference local="id_opcion_tipo_producto" foreign="id_option"/>
+    </foreign-key>
+    <index name="hbf_vasos_ibfk_1">
+      <index-column name="id_user_modified"/>
+    </index>
+    <index name="hbf_vasos_ibfk_2">
+      <index-column name="id_user_created"/>
+    </index>
+    <index name="hbf_vasos_ibfk_3">
+      <index-column name="id_comanda"/>
+    </index>
+    <index name="hbf_vasos_ibfk_4">
+      <index-column name="id_opcion_tipo_producto"/>
+    </index>
+    <vendor type="mysql">
+      <parameter name="Engine" value="InnoDB"/>
+    </vendor>
+  </table>
+  <table name="hbf_ventas" idMethod="native" phpName="HbfVentas">
+    <column name="id_venta" phpName="IdVenta" type="INTEGER" size="10" sqlType="int(10) unsigned" primaryKey="true" autoIncrement="true" required="true"/>
+    <column name="id_club" phpName="IdClub" type="INTEGER" size="10" sqlType="int(10) unsigned"/>
+    <column name="id_turno" phpName="IdTurno" type="INTEGER" size="10" sqlType="int(10) unsigned"/>
+    <column name="id_sesion" phpName="IdSesion" type="INTEGER" size="10" sqlType="int(10) unsigned"/>
+    <column name="id_cliente" phpName="IdCliente" type="INTEGER" size="10" sqlType="int(10) unsigned"/>
+    <column name="fecha_venta" phpName="FechaVenta" type="DATE"/>
+    <column name="id_producto" phpName="IdProducto" type="INTEGER" size="10" sqlType="int(10) unsigned"/>
+    <column name="precio" phpName="Precio" type="DECIMAL" scale="0"/>
+    <column name="observaciones" phpName="Observaciones" type="VARCHAR" size="600"/>
+    <column name="a_cuenta" phpName="ACuenta" type="DECIMAL" scale="0"/>
+    <column name="saldo" phpName="Saldo" type="DECIMAL" scale="0"/>
+    <column name="entregado" phpName="Entregado" type="VARCHAR" size="10"/>
+    <column name="pagado" phpName="Pagado" type="VARCHAR" size="10"/>
+    <column name="estado" phpName="Estado" type="VARCHAR" size="15" required="true" defaultValue="ENABLED"/>
+    <column name="change_count" phpName="ChangeCount" type="INTEGER" required="true" defaultValue="0"/>
+    <column name="id_user_modified" phpName="IdUserModified" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+    <column name="id_user_created" phpName="IdUserCreated" type="INTEGER" sqlType="int(11) unsigned" required="true"/>
+    <column name="date_modified" phpName="DateModified" type="INTEGER" required="true"/>
+    <column name="date_created" phpName="DateCreated" type="INTEGER" required="true"/>
+    <foreign-key foreignTable="ci_usuarios" name="hbf_ventas_ibfk_1">
+      <reference local="id_user_created" foreign="id_usuario"/>
+    </foreign-key>
+    <foreign-key foreignTable="ci_usuarios" name="hbf_ventas_ibfk_2">
+      <reference local="id_user_modified" foreign="id_usuario"/>
+    </foreign-key>
+    <foreign-key foreignTable="ci_usuarios" name="hbf_ventas_ibfk_3">
+      <reference local="id_cliente" foreign="id_usuario"/>
+    </foreign-key>
+    <foreign-key foreignTable="hbf_clubs" name="hbf_ventas_ibfk_4">
+      <reference local="id_club" foreign="id_club"/>
+    </foreign-key>
+    <foreign-key foreignTable="hbf_turnos" name="hbf_ventas_ibfk_5">
+      <reference local="id_turno" foreign="id_turno"/>
+    </foreign-key>
+    <foreign-key foreignTable="hbf_sesiones" name="hbf_ventas_ibfk_6">
+      <reference local="id_sesion" foreign="id_sesion"/>
+    </foreign-key>
+    <foreign-key foreignTable="hbf_productos" name="hbf_ventas_ibfk_7">
+      <reference local="id_producto" foreign="id_producto"/>
+    </foreign-key>
+    <index name="hbf_ventas_ibfk_1">
+      <index-column name="id_user_created"/>
+    </index>
+    <index name="hbf_ventas_ibfk_2">
+      <index-column name="id_user_modified"/>
+    </index>
+    <index name="hbf_ventas_ibfk_3">
+      <index-column name="id_cliente"/>
+    </index>
+    <index name="hbf_ventas_ibfk_4">
+      <index-column name="id_club"/>
+    </index>
+    <index name="hbf_ventas_ibfk_5">
+      <index-column name="id_turno"/>
+    </index>
+    <index name="hbf_ventas_ibfk_6">
+      <index-column name="id_sesion"/>
+    </index>
+    <index name="hbf_ventas_ibfk_7">
+      <index-column name="id_producto"/>
+    </index>
+    <unique name="hbf_ventas_id_venta_uindex">
+      <unique-column name="id_venta"/>
+    </unique>
+    <vendor type="mysql">
+      <parameter name="Engine" value="InnoDB"/>
+    </vendor>
+  </table>
+  <table name="migrations" idMethod="native" phpName="Migrations">
+    <column name="version" phpName="Version" type="BIGINT" required="true"/>
+    <vendor type="mysql">
+      <parameter name="Engine" value="InnoDB"/>
+    </vendor>
+  </table>
+</database>

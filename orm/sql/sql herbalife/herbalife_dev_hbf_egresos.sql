@@ -1,0 +1,1 @@
+INSERT INTO herbalife_dev.hbf_egresos (id_egreso, id_club, id_turno, id_sesion, id_cliente, detalle, tipo_egreso, fecha_egreso, monto, estado, change_count, id_user_modified, id_user_created, date_modified, date_created) VALUES (1, 1, 3, 1, 20, 'cremoso', '0', null, 4, 'ENABLED', 0, 1, 1, '2018-09-18 13:16:41', '2018-09-18 13:16:41');

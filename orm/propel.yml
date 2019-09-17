@@ -1,0 +1,23 @@
+propel:
+  database:
+      connections:
+          herbalife:
+              adapter: mysql
+              classname: Propel\Runtime\Connection\DebugPDO
+              dsn: mysql:host=127.0.0.1;dbname=herbalife_dev
+              user: root
+              password:
+              attributes:
+  runtime:
+      log:
+          defaultLogger:
+              type: stream
+              path: ./propel_log.txt
+              level: 100
+      defaultConnection: herbalife
+      connections:
+          - herbalife
+  generator:
+      defaultConnection: herbalife
+      connections:
+          - herbalife

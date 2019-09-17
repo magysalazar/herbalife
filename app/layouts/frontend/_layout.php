@@ -1,0 +1,1 @@
+<?php include_once ROOT_PATH."ngfront/src/index.html"; ?>

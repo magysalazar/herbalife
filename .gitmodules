@@ -1,0 +1,6 @@
+[submodule "isys"]
+	path = isys
+	url = https://github.com/rafarobert/isys.git
+[submodule "ngfront"]
+	path = ngfront
+	url = https://github.com/rafarobert/ngfront.git

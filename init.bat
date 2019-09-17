@@ -1,0 +1,1 @@
+cd orm & propel-reverse.bat & propel.bat & cd .. & composer update & permitions.bat

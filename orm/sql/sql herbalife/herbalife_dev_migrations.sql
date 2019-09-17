@@ -1,0 +1,1 @@
+INSERT INTO herbalife_dev.migrations (version) VALUES (0);

@@ -1,0 +1,111 @@
+<?php
+/**
+ * Created by herbalife.
+ * User: rafaelgutierrez
+ * Date: 18/07/2018
+ * Time: 3:08 pm
+ * @var Model_prepagos $model_prepagos
+ * @var Model_prepagos prepagos
+ * @var Model_prepagos $prepago
+ */
+?>
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Lista de Fichas Prepago</h2>
+        <ol class="breadcrumb">
+
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight ecommerce">
+
+    <div class="ibox-content m-b-sm border-bottom">
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label class="control-label" for="product_name">Prepago</label>
+                    <input type="text" id="product_name" name="product_name" value=""
+                           placeholder="Product Name" class="form-control">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5></h5>
+                        <?= anchor("admin/prepagos/edit", "<i class='fa fa-plus'></i> Agregar Fichas Prepago", "class='btn btn-primary btn-xs m-l-sm'"); ?>
+                        <?php
+
+                        ?>
+                </div>
+                <div class="ibox-content">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-hover dataTables-example">
+                            <thead>
+                            <tr>
+                                <th>Cliente</th>
+                <th>Turno de</th>
+                <th>Sesion de</th>
+                <th>Fichas_total</th>
+                <th>Fichas_usadas</th>
+                <th>Fecha de creación</th>
+
+                                <th class="text-right" data-sort-ignore="true">Opciones</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php if (count($oPrepagos)) { ?>
+                                <?php foreach ($oPrepagos as $oPrepago) {
+                                    $editLink = "admin/prepagos/edit/";
+
+                                    $editLink .= $oPrepago->id_prepago;
+                                    ?>
+                                    <tr>
+                                        <td><?= $oPrepago->id_cliente; ?></td>
+                <td><?= $oPrepago->id_turno; ?></td>
+                <td><?= $oPrepago->id_sesion; ?></td>
+                <td><?= $oPrepago->fichas_total; ?></td>
+                <td><?= $oPrepago->fichas_usadas; ?></td>
+                <td><?= $oPrepago->date_created; ?></td>
+
+                                        <td class="text-right">
+                                            <div class="btn-group">
+                                                <?= btn_edit($editLink, "class='btn-white btn btn-xs'") ?>
+                                                <?= btn_delete("admin/prepagos/delete/" . $oPrepago->id_prepago, "class='btn-white btn btn-xs'") ?>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                <?php } ?>
+                            <?php } else { ?>
+                                <tr>
+                                    <td colspan="3">No se pudo encontrar prepagos registrados</td>
+                                </tr>
+                            <?php }?>
+                            </tbody>
+                            <tfoot>
+                            <tr>
+
+                            </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footer">
+    <div class="pull-right">
+        10GB of <strong>250GB</strong> Free.
+    </div>
+    <div>
+        <strong>Copyright</strong> Estic Framework &copy; 2018-2019
+    </div>
+</div>

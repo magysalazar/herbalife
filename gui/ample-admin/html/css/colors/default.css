@@ -1,0 +1,163 @@
+@import url(https://fonts.googleapis.com/css?family=Rubik:300,400,500,700,900);
+/*Theme Colors*/
+/*bootstrap Color*/
+/*Normal Color*/
+/*Border radius*/
+/*Preloader*/
+.preloader {
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  position: fixed;
+  z-index: 99999;
+  background: navy;
+}
+.preloader .cssload-speeding-wheel {
+  position: absolute;
+  top: calc(50% - 3.5px);
+  left: calc(50% - 3.5px);
+}
+/*Just change your choise color here its theme Colors*/
+body {
+  background: deeppink;
+}
+.top-left-part {
+  background: deeppink;
+}
+.top-left-part .dark-logo {
+  display: none;
+}
+.top-left-part .light-logo {
+  display: inline-block;
+}
+/*Top Header Part*/
+.logo i {
+  color: deeppink;
+}
+.navbar-header {
+  background: darkgreen;
+}
+.navbar-top-links > li > a {
+  color: #ffffff;
+}
+.sidebar .sidebar-head {
+  background: #ffffff;
+}
+.sidebar .sidebar-head h3 {
+  color: navy;
+}
+/*Right panel*/
+.right-sidebar .rpanel-title {
+  background: blue;
+}
+/*Bread Crumb*/
+.bg-title .breadcrumb .active {
+  color: blue;
+}
+/*Sidebar*/
+.sidebar {
+  background: purple;
+  box-shadow: 1px 0px 20px rgba(0, 0, 0, 0.08);
+}
+.sidebar .label-custom {
+  background: blue;
+}
+#side-menu li a {
+  color: green;
+}
+#side-menu li a {
+  color: purple;
+  border-left: 0px solid black;
+}
+#side-menu > li > a {
+  border-left: 3px solid transperant;
+}
+#side-menu > li > a:hover,
+#side-menu > li > a:focus {
+  background: rgba(0, 0, 0, 0.07);
+}
+#side-menu > li > a.active {
+  background: transperant;
+  color: purple;
+  border-left: 3px solid blue;
+  font-weight: 500;
+}
+#side-menu ul > li > a:hover {
+  color: blue;
+}
+#side-menu ul > li > a.active {
+  color: #54667a;
+  font-weight: 500;
+}
+.user-profile .user-pro-body .u-dropdown {
+  color: #54667a;
+}
+/*themecolor*/
+.bg-theme {
+  background-color: #707cd2 !important;
+}
+.bg-theme-dark {
+  background-color: blue !important;
+}
+/*Button*/
+.btn-custom {
+  background: blue;
+  border: 1px solid blue;
+  color: blue;
+}
+.btn-custom:hover {
+  background: blue;
+  opacity: 0.8;
+  color: blue;
+  border: 1px solid blue;
+}
+/*Custom tab*/
+.customtab li.active a,
+.customtab li.active a:hover,
+.customtab li.active a:focus {
+  border-bottom: 2px solid navy;
+  color: navy;
+}
+.tabs-vertical li.active a,
+.tabs-vertical li.active a:hover,
+.tabs-vertical li.active a:focus {
+  background: navy;
+  border-right: 2px solid navy;
+}
+/*Nav-pills*/
+.nav-pills > li.active > a,
+.nav-pills > li.active > a:focus,
+.nav-pills > li.active > a:hover {
+  background: navy;
+  color: #ffffff;
+}
+/*Extra css*/
+.bg-theme {
+  background-color: navy !important;
+}
+.panel-themecolor,
+.panel-theme {
+  border-color: navy;
+}
+.panel-themecolor .panel-heading,
+.panel-theme .panel-heading {
+  border-color: navy;
+  color: darkgreen;
+  background-color: navy;
+}
+.panel-themecolor .panel-heading a,
+.panel-theme .panel-heading a {
+  color: deeppink;
+}
+.panel-themecolor .panel-heading a:hover,
+.panel-theme .panel-heading a:hover {
+  color: rgba(255, 255, 255, 0.5);
+}
+.panel-themecolor a,
+.panel-theme a {
+  color: navy;
+}
+.panel-themecolor a:hover,
+.panel-theme a:hover {
+  color: navy;
+}
